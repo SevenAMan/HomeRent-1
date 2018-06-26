@@ -1,6 +1,8 @@
 package org.zc.homerent.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,20 +16,21 @@ import javax.persistence.Table;
 @Table
 public class User {
     @Id
-    private String email;
+    private String id;
     @Column
     private String name;
     @Column
+    @JsonIgnore
     private String password;
     @Column
     private long balance;
 
-    public String getEmail() {
-        return email;
+    public String getId() {
+        return id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -57,7 +60,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "email='" + email + '\'' +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", balance=" + balance +

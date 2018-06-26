@@ -11,3 +11,7 @@ spring:
   jackson:
     serialization:
       indent-output: true
+
+file:
+  image-path: ./
+  max-file-size: 5242880

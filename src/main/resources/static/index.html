@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Rent</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+</head>
+<body>
+<form>
+    Email: <input id="id" name="id" type="text" placeholder="Input id">
+    <br>
+    Name: <input id="name" name="name" type="text" placeholder="Input name"/>
+    <br>
+    Password: <input id="password" name="password" type="password" placeholder="Input password">
+    <br>
+    Confirm: <input id="password2" name="password2" type="password" placeholder="Confirm password"/>
+</form>
+<br>
+<input id="signOn" type="button" value="Sign On"/>
+<script>
+    $("#signOn").click(() => {
+        let id = $("#id").val().trim();
+        let name = $("#name").val().trim();
+        let pass = $("#password").val().trim();
+        let password = $("#password2").val().trim();
+        if (pass !== password) {
+            alert("No");
+            return;
+        }
+        $.ajax({
+            url: '/user',
+            type: 'POST',
+            data: {
+                id: id,
+                name: name,
+                password: password
+            },
+            success(data) {
+                if (data.code === 0) {
+                    alert("Success")
+                } else {
+                    alert("Fail")
+                }
+            },
+            error() {
+                console.error("Error");
+            }
+        });
+    });
+</script>
+</body>
+</html>
