@@ -41,4 +41,16 @@ public class HouseServiceImpl implements HouseService {
     public List<House> findBedAndLiving(int bed, int living) {
         return houseDao.findAllByBedAndLivingAndType(bed, living, House.ON_SALE);
     }
+
+    @Override
+    public void add(House house) {
+        houseDao.save(house);
+    }
+
+    @Override
+    public House findById(int id) {
+        return houseDao.getOne(id);
+    }
+
+
 }

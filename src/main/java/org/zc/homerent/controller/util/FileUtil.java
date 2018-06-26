@@ -8,8 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.MultipartFile;
 import org.zc.homerent.util.hash.Hash;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * @author FDws
@@ -59,6 +58,23 @@ public class FileUtil {
             imageParent = new File(System.getProperty("user.home"));
             log.info("Image path point to " + imageParent.getName());
             return imageParent;
+        }
+    }
+
+    public void readImage(String name, OutputStream stream) {
+        File f = new File(getImageParent(), name);
+        if (f.exists()) {
+            try (
+                    InputStream in = new FileInputStream(f)
+            ) {
+                byte[] b = new byte[2048];
+                int len;
+                while ((len = in.read(b)) > 0) {
+                    stream.write(b, 0, len);
+                }
+            } catch (IOException e) {
+                log.error("Read file error " + name);
+            }
         }
     }
 

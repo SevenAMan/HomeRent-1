@@ -51,4 +51,18 @@ public class UserServiceImpl implements UserService {
         userDao.save(u);
         return u;
     }
+
+    @Override
+    public User register(String email, String name, String password) {
+        User u = getUserById(email);
+        if (u != null) {
+            return null;
+        }
+        u = new User();
+        u.setId(email);
+        u.setPassword(hash.hashPassword(password));
+        u.setName(name);
+        u.setBalance(0);
+        return userDao.save(u);
+    }
 }

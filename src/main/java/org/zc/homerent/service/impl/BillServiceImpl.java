@@ -3,7 +3,9 @@ package org.zc.homerent.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zc.homerent.dao.BillDao;
+import org.zc.homerent.dao.UserDao;
 import org.zc.homerent.entity.Bill;
+import org.zc.homerent.entity.User;
 import org.zc.homerent.service.BillService;
 
 import java.util.List;
@@ -15,10 +17,12 @@ import java.util.List;
 @Service
 public class BillServiceImpl implements BillService {
     private final BillDao billDao;
+    private final UserDao userDao;
 
     @Autowired
-    public BillServiceImpl(BillDao billDao) {
+    public BillServiceImpl(BillDao billDao, UserDao userDao) {
         this.billDao = billDao;
+        this.userDao = userDao;
     }
 
     @Override
@@ -43,5 +47,8 @@ public class BillServiceImpl implements BillService {
         b.setPrice(price);
         b.setTime(System.currentTimeMillis());
         billDao.save(b);
+        User u = userDao.getOne(email);
+        u.setBalance(u.getBalance() + price);
+        userDao.save(u);
     }
 }

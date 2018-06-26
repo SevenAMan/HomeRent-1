@@ -13,4 +13,6 @@ public interface UserService {
     User logIn(String email, String password);
 
     User changeInfo(String email, String name, String password);
+
+    User register(String email, String name, String password);
 }

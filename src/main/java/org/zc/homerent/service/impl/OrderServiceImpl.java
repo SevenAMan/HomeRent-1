@@ -30,4 +30,9 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findByTime(String email, long begin, long end) {
         return orderDao.findAllByEmailAndBeginBetween(email, begin, end);
     }
+
+    @Override
+    public void add(Order order) {
+        orderDao.save(order);
+    }
 }

@@ -26,6 +26,8 @@ public class House {
     private String image;
     @Column
     private Integer type;
+    @Column
+    private String message;
 
     public static int ON_SALE = 0;
     public static int SELL_OUT = 1;
@@ -95,6 +97,14 @@ public class House {
         this.image = image;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     @Override
     public String toString() {
         return "House{" +
@@ -106,6 +116,7 @@ public class House {
                 ", living=" + living +
                 ", image='" + image + '\'' +
                 ", type=" + type +
+                ", message='" + message + '\'' +
                 '}';
     }
 }

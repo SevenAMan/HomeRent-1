@@ -17,4 +17,8 @@ public interface HouseService {
     List<House> find(int type);
 
     List<House> findBedAndLiving(int bed, int living);
+
+    void add(House house);
+
+    House findById(int id);
 }

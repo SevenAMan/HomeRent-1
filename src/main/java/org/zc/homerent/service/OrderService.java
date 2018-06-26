@@ -13,4 +13,6 @@ public interface OrderService {
     List<Order> findByEmail(String email);
 
     List<Order> findByTime(String email, long begin, long end);
+
+    void add(Order order);
 }
