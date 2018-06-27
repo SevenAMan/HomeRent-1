@@ -12,7 +12,6 @@ import java.util.List;
  * Created on 2018/6/26 10:04
  */
 @Repository
-@NoRepositoryBean
 public interface BillDao extends JpaRepository<Bill, String> {
     List<Bill> findAllByEmail(String email);
 

@@ -12,7 +12,6 @@ import java.util.List;
  * Created on 2018/6/26 10:01
  */
 @Repository
-@NoRepositoryBean
 public interface OrderDao extends JpaRepository<Order, String> {
     List<Order> findAllByEmail(String email);
 

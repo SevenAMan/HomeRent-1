@@ -83,7 +83,7 @@ public class HouseController {
         return outputStream -> fileUtil.readImage(name, outputStream);
     }
 
-    @GetMapping("/house")
+    @GetMapping("/user/house")
     public Format getMyHouse(HttpSession session, @RequestParam int type) {
         String email = (String) session.getAttribute("user");
         if (email == null) {

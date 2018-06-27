@@ -12,7 +12,6 @@ import java.util.List;
  * Created on 2018/6/26 9:54
  */
 @Repository
-@NoRepositoryBean
 public interface HouseDao extends JpaRepository<House, Integer> {
     List<House> findAllByEmailAndType(String email, Integer type);
 

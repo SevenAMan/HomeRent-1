@@ -79,6 +79,9 @@ public class FileUtil {
     }
 
     public String saveImage(MultipartFile image) {
+        if (image == null || image.isEmpty()) {
+            return "";
+        }
         String name = "";
         try {
             name = hash.hashBytes(image.getBytes()) + suffix(image.getOriginalFilename());

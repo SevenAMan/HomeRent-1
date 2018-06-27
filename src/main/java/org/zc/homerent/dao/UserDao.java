@@ -9,7 +9,6 @@ import org.zc.homerent.entity.User;
  * @author FDws
  * Created on 2018/6/26 9:28
  */
-@NoRepositoryBean
 @Repository
 public interface UserDao extends JpaRepository<User, String> {
 }

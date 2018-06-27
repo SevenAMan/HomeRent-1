@@ -10,7 +10,7 @@ import javax.persistence.Table;
  * Created on 2018/6/26 8:48
  */
 @Entity
-@Table
+@Table(name = "m_order")
 public class Order {
     @Id
     private String id;

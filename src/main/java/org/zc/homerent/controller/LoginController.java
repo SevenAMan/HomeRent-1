@@ -25,9 +25,8 @@ public class LoginController {
 
     @PostMapping("/user")
     public Format register(@RequestParam String email,
-                           @RequestParam String name,
                            @RequestParam String password) {
-        User u = service.register(email, name, password);
+        User u = service.register(email, "", password);
         if (u == null) {
             return new Format().code(ReturnStatus.FAILURE).message(StringUtil.USER_ALREADY_EXISTS);
         }
@@ -36,9 +35,8 @@ public class LoginController {
 
     @PutMapping("/user")
     public Format changeInfo(@RequestParam String email,
-                             @RequestParam String name,
                              @RequestParam String password) {
-        User u = service.changeInfo(email, name, password);
+        User u = service.changeInfo(email, "", password);
         if (u == null) {
             return new Format().code(ReturnStatus.FAILURE);
         } else {
@@ -77,6 +75,8 @@ public class LoginController {
 
     @GetMapping("/session/status")
     public Format status(HttpSession session) {
-        return new Format().code(ReturnStatus.SUCCESS).addData("status", session.getAttribute("user") != null);
+        return new Format().code(ReturnStatus.SUCCESS)
+                .addData("status", session.getAttribute("user") != null)
+                .addData("email", session.getAttribute("user"));
     }
 }
