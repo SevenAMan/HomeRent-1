@@ -1,0 +1,11 @@
+.cur {
+    cursor: pointer;
+}
+
+.pull-right {
+    float: right !important;
+}
+
+.container > div {
+    margin-top: 10px;
+}
