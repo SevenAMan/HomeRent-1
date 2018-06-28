@@ -24,8 +24,8 @@ public class Order {
     private Integer house;
     @Column
     private long price;
-	@Column
-	private int type;
+    @Column
+    private int type;
 
     public String getId() {
         return id;
@@ -74,10 +74,12 @@ public class Order {
     public void setPrice(long price) {
         this.price = price;
     }
-	public int setType(int type) {
-		this.type = type;
-	}
-	public void getType(){
-		return type;
-	}
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getType() {
+        return type;
+    }
 }

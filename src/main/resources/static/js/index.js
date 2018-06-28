@@ -1,4 +1,4 @@
-let panels = ['house', 'order', 'bill', 'user'];
+let panels = ['house', 'order', 'user'];
 let my_data = window.data = {};
 
 $(document).ready(() => {

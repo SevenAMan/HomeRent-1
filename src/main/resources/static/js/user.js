@@ -77,7 +77,7 @@ function register() {
         },
         success(data) {
             if (data.code === 0) {
-                signEdStatus();
+                signInStatus();
             } else {
                 alert("Email is Repeat!")
             }
@@ -129,39 +129,39 @@ function registerStatus() {
     $('#uhouse').hide();
 }
 
-function uploadHouse(){
+function uploadHouse() {
     data = {}
     let area = $('#area').val();
-    if(isNaN(parseFloat(area))) {
+    if (isNaN(parseFloat(area))) {
         alert('Area is not a number');
         return;
     }
     let living = $('#living').val();
-    if(isNaN(parseFloat(living))) {
+    if (isNaN(parseFloat(living))) {
         alert('Living is not a number');
         return;
     }
     let bed = $('#bed').val();
-    if(isNaN(parseFloat(bed))) {
+    if (isNaN(parseFloat(bed))) {
         alert('Bed is not a number');
         return;
     }
     let price = $('#price').val();
-    if(isNaN(parseFloat(price))) {
+    if (isNaN(parseFloat(price))) {
         alert('Price is not a number');
         return;
     }
-    if($('#house_image').attr('src')==='./img/add.png') {
+    if ($('#house_image').attr('src') === './img/add.png') {
         alert("Choose Picture");
         return
     }
     let message = $('#message').val();
     let ff = $('#picture').get(0).files[0];
     let fd = new FormData();
-    fd.append('area', parseInt(parseFloat(area*100)));
+    fd.append('area', parseInt(parseFloat(area)));
     fd.append('living', parseInt(living));
     fd.append('bed', parseInt(bed));
-    fd.append('price', parseInt(parseFloat(price*100)));
+    fd.append('price', parseInt(parseFloat(price)));
     fd.append('file', ff);
     fd.append('message', message);
 
@@ -171,19 +171,20 @@ function uploadHouse(){
         data: fd,
         contentType: false,
         processData: false,
-        success(data){
-            if(data.code === 0) {
+        success(data) {
+            if (data.code === 0) {
                 alert('Success');
             } else {
                 alert('Error' + data.message);
             }
             initUpload();
         },
-        error(){
+        error() {
             alert('Error')
         }
     });
 }
+
 function initUpload() {
     $('#area').val("");
     $('#bed').val("");

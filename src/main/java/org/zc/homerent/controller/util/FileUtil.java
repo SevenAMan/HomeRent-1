@@ -79,19 +79,20 @@ public class FileUtil {
     }
 
     public String saveImage(MultipartFile image) {
-		System.out.println("File empty or null " + image==null + " " + image.isEmpty());
+        System.out.println("File empty or null " + (image == null));
         if (image == null || image.isEmpty()) {
             return "";
         }
         String name = "";
         try {
             name = hash.hashBytes(image.getBytes()) + suffix(image.getOriginalFilename());
+            System.out.println(getImageParent().getAbsolutePath());
             image.transferTo(new File(getImageParent(), name));
         } catch (IOException e) {
             e.printStackTrace();
             log.error("Save file error " + name);
         }
-		System.out.println(name);
+        System.out.println(name);
         return name;
     }
 

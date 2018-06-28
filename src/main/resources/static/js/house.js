@@ -1,6 +1,7 @@
 function houseInit() {
     refreshIndex();
 }
+
 function cloneHouseCard(user, info) {
     let ch = $('#house_card').clone().removeAttr("id").removeAttr('hidden');
     let b = $(ch).children().first();
@@ -13,12 +14,13 @@ function cloneHouseCard(user, info) {
     $(i).children().eq(4).children().first().text(info.price);
     $(i).children().eq(5).children().first().text(info.message);
     if (user) {
-        $(b).eq(2).removeAttr('hidden');
+        $(b).children().eq(2).removeAttr('hidden');
     } else {
-        $(b).eq(3).removeAttr('hidden');
+        $(b).children().eq(3).removeAttr('hidden');
     }
     return ch;
 }
+
 function searchHouse(price1, price2, area1, area2, bed, living, obj, user) {
     $.ajax({
         url: '/house',
@@ -38,23 +40,27 @@ function searchHouse(price1, price2, area1, area2, bed, living, obj, user) {
         }
     });
 }
+
 function showHouseCard(obj, houses, user) {
+    $(obj).empty();
     for (let h of houses) {
-        let el = cloneHouseCard(user, h)
+        let el = cloneHouseCard(user, h);
         $(obj).append(el);
     }
 }
+
 function refreshIndex() {
     $('#houseContent').empty();
     searchHouse(0, 99999, 0, 100000, 0, 0, $('#houseContent'), false);
 }
+
 function rentThis(obj) {
     let hour = $(obj).parent().children().first().children().first().val().trim();
     if (isNaN(parseInt(hour))) {
         alert("hour illegal");
         return;
     }
-    let hId = $(obj).parent().parent().children().eq(1).children().first().val().trim();
+    let hId = $(obj).parent().parent().children().eq(1).children().first().text().trim();
     hour = hour * 3600 * 1000;
     let begin = new Date().getTime();
     let end = begin + hour;
@@ -67,13 +73,13 @@ function rentThis(obj) {
             end: end
         },
         success(data) {
-            if(data.code === 0) {
+            if (data.code === 0) {
                 alert("Success")
             } else {
-                alert(data.message)
+                alert("Please Sign In")
             }
         },
-        error(){
+        error() {
         }
     });
 }

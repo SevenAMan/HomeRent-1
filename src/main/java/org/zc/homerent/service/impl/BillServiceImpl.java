@@ -43,6 +43,7 @@ public class BillServiceImpl implements BillService {
     @Override
     public void recharge(String email, long price) {
         Bill b = new Bill();
+        b.setId(System.currentTimeMillis() + email.split("@")[0]);
         b.setEmail(email);
         b.setPrice(price);
         b.setTime(System.currentTimeMillis());

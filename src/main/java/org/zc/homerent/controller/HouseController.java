@@ -7,6 +7,7 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 import org.zc.homerent.controller.util.FileUtil;
 import org.zc.homerent.controller.util.Format;
 import org.zc.homerent.controller.util.ReturnStatus;
+import org.zc.homerent.dao.HouseDao;
 import org.zc.homerent.entity.House;
 import org.zc.homerent.service.HouseService;
 import org.zc.homerent.util.StringUtil;
@@ -26,10 +27,13 @@ public class HouseController {
     private final FileUtil fileUtil;
     private final HouseService service;
 
+    private final HouseDao houseDao;
+
     @Autowired
-    public HouseController(FileUtil fileUtil, HouseService service) {
+    public HouseController(FileUtil fileUtil, HouseService service, HouseDao houseDao) {
         this.fileUtil = fileUtil;
         this.service = service;
+        this.houseDao = houseDao;
     }
 
     @PostMapping("/house")
@@ -53,36 +57,21 @@ public class HouseController {
         house.setMessage(message);
         house.setPrice(price);
         house.setImage(hn);
-		house.setType(House.ON_SALE);
+        house.setType(House.ON_SALE);
         service.add(house);
         return new Format().code(ReturnStatus.SUCCESS);
     }
 
     @GetMapping("/house")
-    public Format getHouse(@RequestParam int price1,
-                           @RequestParam int price2,
-                           @RequestParam int area1,
-                           @RequestParam int area2,
-                           @RequestParam int bed,
-                           @RequestParam int living) {
-        Stream<House> result = service.find(House.ALL)
-                .stream().filter(house -> house.getPrice() > price1)
-                .filter(house -> house.getPrice() < price2)
-                .filter(house -> house.getArea() > area1)
-                .filter(house -> house.getArea() < area2);
-        if (bed > 0) {
-            result = result.filter(house -> house.getBed() == bed);
-        }
-        if (living > 0) {
-            result = result.filter(house -> house.getLiving() == living);
-        }
-        List<House> re = result.collect(Collectors.toList());
-        return new Format().code(ReturnStatus.SUCCESS).addData("houses", re);
+    public Format getHouse() {
+        List<House> result = houseDao.findAll()
+                .stream().filter(house -> house.getType() != House.SELL_OUT).collect(Collectors.toList());
+        return new Format().code(ReturnStatus.SUCCESS).addData("houses", result);
     }
 
     @GetMapping("/house/{name}")
     public StreamingResponseBody houseImage(@PathVariable String name) {
-        return outputStream -> fileUtil.readImage(name.replace("@","."), outputStream);
+        return outputStream -> fileUtil.readImage(name.replace("@", "."), outputStream);
     }
 
     @GetMapping("/user/house")
@@ -93,5 +82,18 @@ public class HouseController {
         }
         List<House> re = service.findAll(email, type);
         return new Format().code(ReturnStatus.SUCCESS).addData("houses", re);
+    }
+
+    @GetMapping("/house/my")
+    public Format mHouse(HttpSession session) {
+        String email = (String) session.getAttribute("user");
+        List<House> houses = houseDao.findAll().stream().filter(house -> house.getEmail().equals(email))
+                .collect(Collectors.toList());
+        return new Format().code(0).addData("houses", houses);
+    }
+    @DeleteMapping("/house/{id}")
+    public Format del(@PathVariable String id){
+        houseDao.delete(houseDao.getOne(Integer.parseInt(id)));
+        return new Format().code(ReturnStatus.SUCCESS);
     }
 }

@@ -14,4 +14,4 @@ spring:
 
 file:
   image-path: C:\\Users\\cie\\IdeaProjects\\HomeRent\\img
-  max-file-size: 5242880
+  max-file-size: 5242880 #5mb
