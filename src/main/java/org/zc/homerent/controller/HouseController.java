@@ -13,6 +13,7 @@ import org.zc.homerent.util.StringUtil;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,7 +32,7 @@ public class HouseController {
         this.service = service;
     }
 
-    @PutMapping("/house")
+    @PostMapping("/house")
     public Format addHouse(@RequestParam int area,
                            @RequestParam int bed,
                            @RequestParam int living,
@@ -52,6 +53,7 @@ public class HouseController {
         house.setMessage(message);
         house.setPrice(price);
         house.setImage(hn);
+		house.setType(House.ON_SALE);
         service.add(house);
         return new Format().code(ReturnStatus.SUCCESS);
     }
@@ -80,7 +82,7 @@ public class HouseController {
 
     @GetMapping("/house/{name}")
     public StreamingResponseBody houseImage(@PathVariable String name) {
-        return outputStream -> fileUtil.readImage(name, outputStream);
+        return outputStream -> fileUtil.readImage(name.replace("@","."), outputStream);
     }
 
     @GetMapping("/user/house")

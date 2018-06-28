@@ -8,10 +8,10 @@ $(document).ready(() => {
     }
     $('#house').show();
     checkStatus();
+    refreshIndex();
 });
 
 function changePanel(obj) {
-
     for (let p of panels) {
         if ($(obj).text().toLowerCase() === p) {
             $('#' + p).show();
@@ -37,6 +37,7 @@ function checkStatus() {
         },
         error(){
             userInit();
+            alert('Net Error')
         }
     });
 

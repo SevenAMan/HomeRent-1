@@ -34,7 +34,7 @@ public class OrderController {
         this.billService = billService;
         this.houseService = houseService;
     }
-
+    // TODO change house type and complete order
     @PostMapping("/order")
     public Format create(@RequestParam int id,
                          @RequestParam long begin,

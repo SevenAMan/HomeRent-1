@@ -13,5 +13,5 @@ spring:
       indent-output: true
 
 file:
-  image-path: ./
+  image-path: C:\\Users\\cie\\IdeaProjects\\HomeRent\\img
   max-file-size: 5242880

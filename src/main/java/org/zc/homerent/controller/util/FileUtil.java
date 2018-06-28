@@ -79,6 +79,7 @@ public class FileUtil {
     }
 
     public String saveImage(MultipartFile image) {
+		System.out.println("File empty or null " + image==null + " " + image.isEmpty());
         if (image == null || image.isEmpty()) {
             return "";
         }
@@ -90,6 +91,7 @@ public class FileUtil {
             e.printStackTrace();
             log.error("Save file error " + name);
         }
+		System.out.println(name);
         return name;
     }
 

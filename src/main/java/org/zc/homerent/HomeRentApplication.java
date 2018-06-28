@@ -16,9 +16,7 @@ public class HomeRentApplication {
     public String hello(HttpServletResponse response) {
         response.setHeader(HttpHeaders.CONTENT_TYPE, "text/html");
 
-        return "<script>\n" +
-                "    window.location.href = window.location.href + \"/index.html\";\n" +
-                "</script>";
+        return "<script>window.location.href = window.location.href + '/index.html';</script>";
     }
 
     public static void main(String[] args) {

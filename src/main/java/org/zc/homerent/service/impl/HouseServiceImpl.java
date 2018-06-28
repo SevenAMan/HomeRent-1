@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.zc.homerent.dao.HouseDao;
 import org.zc.homerent.entity.House;
 import org.zc.homerent.service.HouseService;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +34,11 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public List<House> find(int type) {
-        return houseDao.findAll().stream().filter(house -> house.getType() == House.ON_SALE).collect(Collectors.toList());
+		List<House> r = houseDao.findAll();
+		if(r==null){
+			return new LinkedList<House>();
+		}
+        return r.stream().filter(house -> house.getType() == House.ON_SALE).collect(Collectors.toList());
     }
 
     @Override
